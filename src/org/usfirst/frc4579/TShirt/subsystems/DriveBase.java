@@ -21,7 +21,7 @@ import edu.wpi.first.wpilibj.Talon;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
 
-import edu.wpi.first.wpilibj.filters.LinearDigitalFilter;
+// filter joystick inputs?  import edu.wpi.first.wpilibj.filters.LinearDigitalFilter;
 
 /**
  *
