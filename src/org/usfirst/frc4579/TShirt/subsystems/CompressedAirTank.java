@@ -38,14 +38,14 @@ public class CompressedAirTank extends Subsystem {
 	public enum AIRSHOTLENGTH {SHORT, MEDIUM, LONG};
 	
 	// Mapping of these three abstract lengths of time to actual times in milliseconds.
-	private static EnumMap<AIRSHOTLENGTH, Integer> shotLengthMap = 
+	private static EnumMap<AIRSHOTLENGTH, Integer> m_shotLengthMap = 
 			new EnumMap<AIRSHOTLENGTH, Integer>(AIRSHOTLENGTH.class);
 	
 	// Mapping of the current AIRSHOTLENGTH to the next if the AIRSHOTLENGTH button is hit.
-	private EnumMap<AIRSHOTLENGTH, AIRSHOTLENGTH> nextShotLengthMap = 
+	private EnumMap<AIRSHOTLENGTH, AIRSHOTLENGTH> m_nextShotLengthMap = 
 			new EnumMap<AIRSHOTLENGTH, AIRSHOTLENGTH>(AIRSHOTLENGTH.class);
 	
-	private AIRSHOTLENGTH currentAirShotLength = AIRSHOTLENGTH.SHORT;
+	private AIRSHOTLENGTH m_currentAirShotLength = AIRSHOTLENGTH.SHORT;
 	
     // Put methods for controlling this subsystem
     // here. Call these from Commands.
@@ -53,12 +53,12 @@ public class CompressedAirTank extends Subsystem {
 	// Returns how long (in ms) the valve should be left open based on the selected
 	// AIRSHOTLENGTH.
 	public int getValveOpenTime(){
-		return shotLengthMap.get(currentAirShotLength);
+		return m_shotLengthMap.get(m_currentAirShotLength);
 	}
 	
 	// Called to cycle the current AIRSHOTLENGTH to the next value.
 	public void setNextShotLength () {
-		currentAirShotLength = nextShotLengthMap.get(currentAirShotLength);
+		m_currentAirShotLength = m_nextShotLengthMap.get(m_currentAirShotLength);
 	}
 	
 	// Opens the tank air pressure release valve.
@@ -82,13 +82,13 @@ public class CompressedAirTank extends Subsystem {
     	
     	// Initialize the enumMap's
     	
-		shotLengthMap.put(AIRSHOTLENGTH.SHORT,  100); // milliseconds
-		shotLengthMap.put(AIRSHOTLENGTH.MEDIUM, 200);
-		shotLengthMap.put(AIRSHOTLENGTH.LONG,   300);
+    	m_shotLengthMap.put(AIRSHOTLENGTH.SHORT,  100); // milliseconds
+    	m_shotLengthMap.put(AIRSHOTLENGTH.MEDIUM, 200);
+    	m_shotLengthMap.put(AIRSHOTLENGTH.LONG,   300);
 		
-		nextShotLengthMap.put(AIRSHOTLENGTH.SHORT,  AIRSHOTLENGTH.MEDIUM);
-		nextShotLengthMap.put(AIRSHOTLENGTH.MEDIUM, AIRSHOTLENGTH.LONG);
-		nextShotLengthMap.put(AIRSHOTLENGTH.LONG,   AIRSHOTLENGTH.SHORT);
+    	m_nextShotLengthMap.put(AIRSHOTLENGTH.SHORT,  AIRSHOTLENGTH.MEDIUM);
+    	m_nextShotLengthMap.put(AIRSHOTLENGTH.MEDIUM, AIRSHOTLENGTH.LONG);
+    	m_nextShotLengthMap.put(AIRSHOTLENGTH.LONG,   AIRSHOTLENGTH.SHORT);
     }
 }
 
