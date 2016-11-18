@@ -50,6 +50,19 @@ public class CompressedAirTank extends Subsystem {
     // Put methods for controlling this subsystem
     // here. Call these from Commands.
     
+	public void initialize() {
+    	
+    	// Initialize the enumMap's
+    	
+    	m_shotLengthMap.put(AIRSHOTLENGTH.SHORT,  100); // milliseconds
+    	m_shotLengthMap.put(AIRSHOTLENGTH.MEDIUM, 200);
+    	m_shotLengthMap.put(AIRSHOTLENGTH.LONG,   300);
+		
+    	m_nextShotLengthMap.put(AIRSHOTLENGTH.SHORT,  AIRSHOTLENGTH.MEDIUM);
+    	m_nextShotLengthMap.put(AIRSHOTLENGTH.MEDIUM, AIRSHOTLENGTH.LONG);
+    	m_nextShotLengthMap.put(AIRSHOTLENGTH.LONG,   AIRSHOTLENGTH.SHORT);
+	}
+	
 	// Returns how long (in ms) the valve should be left open based on the selected
 	// AIRSHOTLENGTH.
 	public int getValveOpenTime(){
@@ -79,16 +92,7 @@ public class CompressedAirTank extends Subsystem {
 
         // Set the default command for a subsystem here.
         // setDefaultCommand(new MySpecialCommand());
-    	
-    	// Initialize the enumMap's
-    	
-    	m_shotLengthMap.put(AIRSHOTLENGTH.SHORT,  100); // milliseconds
-    	m_shotLengthMap.put(AIRSHOTLENGTH.MEDIUM, 200);
-    	m_shotLengthMap.put(AIRSHOTLENGTH.LONG,   300);
-		
-    	m_nextShotLengthMap.put(AIRSHOTLENGTH.SHORT,  AIRSHOTLENGTH.MEDIUM);
-    	m_nextShotLengthMap.put(AIRSHOTLENGTH.MEDIUM, AIRSHOTLENGTH.LONG);
-    	m_nextShotLengthMap.put(AIRSHOTLENGTH.LONG,   AIRSHOTLENGTH.SHORT);
+
     }
 }
 
