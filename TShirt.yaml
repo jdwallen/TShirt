@@ -183,7 +183,7 @@ Children:
             validators: [AnalogInput]
             value: '1'
           Full Range: !!robotbuilder.data.properties.DoubleProperty {default: 1, name: Full Range,
-            validators: null, value: 1.0}
+            validators: null, value: 270.0}
           Offset: !!robotbuilder.data.properties.DoubleProperty {default: 0, name: Offset,
             validators: null, value: 0.0}
         Base: Analog Potentiometer
@@ -220,9 +220,9 @@ Children:
         Period: !!robotbuilder.data.properties.DoubleProperty {default: 0.02, name: Period,
           validators: null, value: 0.02}
         Minimum Input: !!robotbuilder.data.properties.DoubleProperty {default: 0,
-          name: Minimum Input, validators: null, value: 0.0}
+          name: Minimum Input, validators: null, value: 10.0}
         Limit Input: !!robotbuilder.data.properties.BooleanProperty {default: false,
-          name: Limit Input, validators: null, value: false}
+          name: Limit Input, validators: null, value: true}
         Minimum Output: !!robotbuilder.data.properties.DoubleProperty {default: -1,
           name: Minimum Output, validators: null, value: -1.0}
         P: !!robotbuilder.data.properties.DoubleProperty {default: 1, name: P, validators: null,
@@ -242,7 +242,7 @@ Children:
           validators: [ChildDropdownSelected]
           value: Lift Arm Lift Arm Speed Controller
         Maximum Input: !!robotbuilder.data.properties.DoubleProperty {default: 5,
-          name: Maximum Input, validators: null, value: 5.0}
+          name: Maximum Input, validators: null, value: 80.0}
       Base: PID Controller
       Name: Lift Arm PID Controller
     - Children: []
@@ -528,7 +528,7 @@ Children:
   Name: Commands
 Properties:
   Eclipse Workspace: !!robotbuilder.data.properties.FileProperty {default: 'C:\Users\Jon\workspace',
-    extension: null, folder: true, name: Eclipse Workspace, validators: null, value: 'C:\Users\Jon\workspace'}
+    extension: null, folder: true, name: Eclipse Workspace, validators: null, value: 'C:\Users\Jon\Documents\GitHub'}
   Export Commands: !!robotbuilder.data.properties.BooleanProperty {default: true,
     name: Export Commands, validators: null, value: true}
   Autonomous command parameters: !!robotbuilder.data.properties.ParametersProperty
