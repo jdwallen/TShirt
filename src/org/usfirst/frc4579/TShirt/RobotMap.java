@@ -78,7 +78,7 @@ public class RobotMap {
         driveBaseDriveMotors.setMaxOutput(1.0);
         driveBaseDriveMotors.setInvertedMotor(RobotDrive.MotorType.kFrontLeft, true);
         driveBaseDriveMotors.setInvertedMotor(RobotDrive.MotorType.kRearLeft, true);
-        liftArmLiftArmAnalogPotentiometer = new AnalogPotentiometer(1, 1.0, 0.0);
+        liftArmLiftArmAnalogPotentiometer = new AnalogPotentiometer(1, 270.0, 0.0);
         LiveWindow.addSensor("Lift Arm", "Lift Arm Analog Potentiometer", liftArmLiftArmAnalogPotentiometer);
         
         liftArmLiftArmSpeedController = new Talon(4);
@@ -89,6 +89,7 @@ public class RobotMap {
         liftArmLiftArmPIDController.setContinuous(false);
         liftArmLiftArmPIDController.setAbsoluteTolerance(0.2);
 
+        liftArmLiftArmPIDController.setInputRange(10.0, 80.0);
         liftArmLiftArmPIDController.setOutputRange(-1.0, 1.0);
         liftArmRaisedLimitSwitch = new DigitalInput(2);
         LiveWindow.addSensor("Lift Arm", "Raised Limit Switch", liftArmRaisedLimitSwitch);
