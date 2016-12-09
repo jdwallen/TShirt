@@ -37,7 +37,7 @@ public class DefaultAim extends Command {
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	Robot.liftArm.initialize();
+
     }
 
     // Called repeatedly when this Command is scheduled to run
