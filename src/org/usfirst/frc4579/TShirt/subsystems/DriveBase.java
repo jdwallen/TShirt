@@ -20,8 +20,7 @@ import edu.wpi.first.wpilibj.SpeedController;
 import edu.wpi.first.wpilibj.Talon;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
-
-// filter joystick inputs?  import edu.wpi.first.wpilibj.filters.LinearDigitalFilter;
+import org.usfirst.frc4579.utilities.LowPassFilter;
 
 /**
  *
@@ -45,26 +44,23 @@ public class DriveBase extends Subsystem {
 
     // Put methods for controlling this subsystem
     // here. Call these from Commands.
-    //private LinearDigitalFilter m_xFilter = new LinearDigitalFilter();
+
+    // Declare some low pass filters.
+    private final double K = 0.7;
     
-    
-    private double m_xPosFiltered  = 0.0; // Filtered value of joystick X position
-    private double m_yPosFiltered  = 0.0; // Filtered value of joystick Y position
-    private double m_twistFiltered = 0.0; // Filtered value of joystick twist
-    private double m_gyroFiltered  = 0.0; // Filtered value of gyro angle
+    LowPassFilter xLPF = new LowPassFilter(K);
+    LowPassFilter yLPF = new LowPassFilter(K);
+    LowPassFilter zLPF = new LowPassFilter(K);
+    LowPassFilter aLPF = new LowPassFilter(K);
     
     // Get the filtered values of the drive inputs and invoke the mechanum drive.
     public void mechanumDrive () {
     	
-    	double X = Robot.oi.getJoystick1().getX();
-    	double Y = Robot.oi.getJoystick1().getY();
-    	double T = Robot.oi.getJoystick1().getTwist();
-    	
-    	// Implement filter?
-    	m_xPosFiltered  = X;
-    	m_yPosFiltered  = Y;
-    	m_twistFiltered = T;
-    	m_gyroFiltered  = analogGyro.getAngle();
+    	// Smooth the joystick and gyro inputs.
+    	double X = xLPF.filter(Robot.oi.getJoystick1().getX());
+    	double Y = yLPF.filter(Robot.oi.getJoystick1().getY());
+    	double T = zLPF.filter(Robot.oi.getJoystick1().getTwist());
+    	double A = aLPF.filter(analogGyro.getAngle());
     	
     	/* The gyro rotation will adjust the rotation value supplied, in this case, from the twist axis 
     	 * of the joystick to be relative to the field rather than relative to the robot. This is particularly
@@ -77,19 +73,19 @@ public class DriveBase extends Subsystem {
     	 * compared to a "robot-oriented" drive system where the controls are reversed when the robot is 
     	 * facing the drivers. */
     	
-    	// Compensate for wheel slippage?
-    	
-    	driveMotors.mecanumDrive_Cartesian(m_xPosFiltered, m_yPosFiltered, m_twistFiltered, m_gyroFiltered);
+    	driveMotors.mecanumDrive_Cartesian(X, Y, T, A);
 	
     }
     
     // Stop all speed controllers.
     public void stop () {
     	
-    	leftRearSpeedController  .stopMotor();
-    	leftFrontSpeedController .stopMotor();
-    	rightFrontSpeedController.stopMotor();
-    	rightRearSpeedController .stopMotor();
+    	driveMotors.mecanumDrive_Cartesian(0, 0, 0, 0);
+    	xLPF.reset();
+    	yLPF.reset();
+    	zLPF.reset();
+    	aLPF.reset();
+
     }
 
     public void initDefaultCommand() {
